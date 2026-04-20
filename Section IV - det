@@ -1,0 +1,30 @@
+// ==========================================
+// Author: Vesa
+// Student ID: 2024584
+// Part 4: Determinant Logic
+// ==========================================
+
+#include <iostream>
+
+using namespace std;
+
+template <class T>
+T determinant2x2(T** m)
+{
+    return m[0][0] * m[1][1] - m[0][1] * m[1][0];
+}
+
+int main()
+{
+    double** m = new double*[2];
+
+    for (int i = 0; i < 2; i++)
+        m[i] = new double[2];
+
+    m[0][0] = 1; m[0][1] = 2;
+    m[1][0] = 3; m[1][1] = 4;
+
+    cout << determinant2x2(m);
+
+    return 0;
+}
