@@ -1,0 +1,66 @@
+// ==========================================
+// Author: Vesa
+// Student ID: 2024584
+// Part 2: Matrix Class
+// ==========================================
+
+#include <iostream>
+#include <iomanip>
+#include <type_traits>
+#include <new>
+
+using namespace std;
+
+const int MAX_MATRIX_ROWCOL_SIZE = 12;
+int SET_WIDTH = 8;
+
+namespace MatrixDetVesa
+{
+    template <class T>
+    class Matrix
+    {
+    protected:
+        T* arr;
+        size_t row, col;
+
+    public:
+        Matrix(const T* inputArr, size_t r, size_t c)
+        {
+            static_assert(is_same<T, long>::value || is_same<T, double>::value);
+
+            row = r;
+            col = c;
+
+            arr = new T[row * col];
+
+            for (size_t i = 0; i < row * col; i++)
+                arr[i] = inputArr[i];
+        }
+
+        virtual ~Matrix()
+        {
+            delete[] arr;
+        }
+
+        void print() const
+        {
+            for (size_t i = 0; i < row; i++)
+            {
+                for (size_t j = 0; j < col; j++)
+                    cout << setw(SET_WIDTH) << arr[i * col + j];
+
+                cout << endl;
+            }
+        }
+    };
+}
+
+int main()
+{
+    double arr[4] = {1, 2, 3, 4};
+
+    MatrixDetVesa::Matrix<double> m(arr, 2, 2);
+    m.print();
+
+    return 0;
+}
