@@ -1,0 +1,64 @@
+// ==========================================
+// Author: Vesa
+// Student ID: 2024584
+// Part 3: sqMatrix (Inheritance)
+// ==========================================
+
+#include <iostream>
+#include <new>
+
+using namespace std;
+
+namespace MatrixDetVesa
+{
+    template <class T>
+    class Matrix
+    {
+    protected:
+        T* arr;
+        size_t row, col;
+
+    public:
+        Matrix(const T* a, size_t r, size_t c)
+        {
+            row = r;
+            col = c;
+            arr = new T[r * c];
+
+            for (int i = 0; i < r * c; i++)
+                arr[i] = a[i];
+        }
+
+        virtual ~Matrix()
+        {
+            delete[] arr;
+        }
+    };
+
+    template <class T>
+    class sqMatrix : public Matrix<T>
+    {
+    private:
+        Matrix<T>* sqMat;
+
+    public:
+        sqMatrix(const T* arr, size_t size)
+            : Matrix<T>(arr, size, size)
+        {
+            sqMat = new Matrix<T>(arr, size, size);
+        }
+
+        ~sqMatrix()
+        {
+            delete sqMat;
+        }
+    };
+}
+
+int main()
+{
+    double arr[4] = {1, 2, 3, 4};
+    MatrixDetVesa::sqMatrix<double> m(arr, 2);
+
+    return 0;
+}
